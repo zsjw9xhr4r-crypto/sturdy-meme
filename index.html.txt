@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mirna 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.15);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .yes {
+      background: #fff;
+      color: #ff4d6d;
+    }
+
+    .no {
+      background: #ff4d6d;
+      color: #fff;
+      position: absolute;
+    }
+
+    .comment {
+      margin-top: 10px;
+      font-size: 16px;
+      height: 20px;
+    }
+
+    .date-box {
+      margin-top: 20px;
+      display: none;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <h1>Mirna 💕</h1>
+    <p>Will you be my Valentine?</p>
+
+    <button class="yes" id="yesBtn" onclick="showDate()">Yes ❤️</button>
+    <button class="no" id="noBtn">No 💔</button>
+
+    <div class="comment" id="comment"></div>
+
+    <div class="date-box" id="dateBox">
+      <p>Choose our date 🌹</p>
+      <input type="date" id="date">
+      <br><br>
+      <button class="yes" onclick="confirmDate()">Confirm 💖</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const card = document.getElementById("card");
+    const comment = document.getElementById("comment");
+
+    let yesScale = 1;
+
+    const comments = [
+      "Nope 😜",
+      "Try again 😂",
+      "Not today 💕",
+      "Almost 😏",
+      "You know you want to 😘"
+    ];
+
+    noBtn.addEventListener("mouseover", escape);
+    noBtn.addEventListener("touchstart", escape);
+
+    function escape() {
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width;
+      const maxY = cardRect.height - btnRect.height;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      // random comment
+      comment.innerText = comments[Math.floor(Math.random() * comments.length)];
+
+      // grow YES button
+      yesScale += 0.1;
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+
+    function showDate() {
+      document.getElementById("dateBox").style.display = "block";
+    }
+
+    function confirmDate() {
+      const date = document.getElementById("date").value;
+      if (!date) {
+        alert("Please choose a date ❤️");
+        return;
+      }
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML =
+        `You had no choice anyway 😌💞<br>
+         It's a date on <b>${date}</b> 🌹`;
+    }
+  </script>
+
+</body>
+</html>
